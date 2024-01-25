@@ -1,38 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap');
+
+body {
+  background-color: #151717;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  text-align: left;
+  background-color: #151717; 
+  color: rgba(255, 255, 255, 0.50);
+  padding: 0 100px 300px 100px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #151717;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding-top: 40px;
 }
 
-.App-link {
-  color: #61dafb;
+.logo {
+  width: 132px;
+  padding-bottom: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-header h1 {
+  margin-bottom: 4px;
+}
+
+.App-header h3 {
+  color: gray;
+  font-weight: normal;
+  font-size: 16px;
+  margin-bottom: 50px;
+}
+
+.aethermind {
+  font-family: 'Imperial Script', cursive;
+  font-size: 104px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+  color: rgba(255, 255, 255);
+  text-decoration: none !important;
+}
+
+.Deck-creation {
+  margin: 20px;
+}
+
+.decks li, a, a:visited {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+}
+
+.decklist {
+  margin-top: 60px;
+}
+
+input[type="text"] {
+  margin-right: 10px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.category {
+  font-family: Geist Mono;
+  font-weight: 400;
+  font-size: 14px;
+  opacity: 0.5;
+  margin-top: 32px;
+}
+
+.section {
+  font-size: 16px;
+}
+
+button {
+  padding: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.decklist {
+  text-align: left;
+}
+
+.card-item {
+  position: relative;
+  padding-bottom: 16px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.card-item > button {
+  padding: 0px 5px;
+  border-radius: 32px;
+  border: none;
+  color: rgba(255, 255, 255, 0.50);
+  background-color: rgba(0,0,0, 0.30)
+}
+
+.card-image {
+  display: none;
+  position: absolute;
+  top: -100px;
+  left: 300px; /* Adjust as needed */
+  width: 250px;
+  box-shadow: 8px 8px 16px 0px rgba(0, 0, 0, 0.60);
+  border-radius: 12px;
+}
+
+.card-item:hover .card-image {
+  display: block;
+}
+
+/* Optional: Style for smooth appearing of the image */
+.card-image {
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.card-item:hover .card-image {
+  opacity: 1;
 }
