@@ -7,6 +7,7 @@ import CommanderSearch from "./components/CommanderSearch";
 import Header from "./components/Header";
 import CreatedDecks from "./components/CreatedDecks"; // Import the new component
 import "./App.css";
+import "./mana.min.css";
 
 function App() {
   const [decks, setDecks] = useState([]);
