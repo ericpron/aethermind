@@ -82,10 +82,23 @@ a:hover {
   font-size: 16px;
 }
 
+/* Style for the select button */
 button {
-  padding: 8px;
-  font-size: 16px;
+  padding: 8px 12px;
+  margin-left: 12px;
+  border: none;
+  border-radius: 10px;
+  background-color: #000;
+  font-family: geist mono, monospace;
+  font-size: 14px;
+  color: white;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover state for the select button */
+button:hover {
+  background-color: #666;
 }
 
 ul {
@@ -104,12 +117,18 @@ ul {
   cursor: pointer;
 }
 
-.card-item > button {
+.delete-button {
+  display: none;
   padding: 0px 5px;
+  margin-left: 8px;
   border-radius: 32px;
   border: none;
   color: rgba(255, 255, 255, 0.5);
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.card-item:hover .delete-button {
+  display: inline;
 }
 
 .card-image {
@@ -161,7 +180,7 @@ input[type="text"] {
 /* Base styles for the search input container */
 .search-container {
   position: relative;
-  margin-bottom: 20px;
+  top: 80px;
 }
 
 /* Styles for the input field */
