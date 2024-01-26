@@ -5,46 +5,11 @@ import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import Deck from "./components/Deck";
 import CommanderSearch from "./components/CommanderSearch";
 import Header from "./components/Header";
+import CreatedDecks from "./components/CreatedDecks"; // Import the new component
 import "./App.css";
 
 function App() {
   const [decks, setDecks] = useState([]);
-
-  const CreatedDecks = () => {
-    useEffect(() => {
-      const fetchDecks = async () => {
-        try {
-          const querySnapshot = await getDocs(collection(db, "decks"));
-          const decksArray = [];
-          querySnapshot.forEach((doc) => {
-            decksArray.push({ id: doc.id, ...doc.data() });
-          });
-          setDecks(decksArray);
-        } catch (error) {
-          console.error("Error fetching decks: ", error);
-        }
-      };
-
-      fetchDecks();
-    }, []);
-
-    if (!decks) {
-      return <div>Loading decks...</div>;
-    }
-
-    return (
-      <div className="decks">
-        <h2 className="category">Created Decks</h2>
-        <ul>
-          {decks.map((deck) => (
-            <li key={deck.id} className="card-item">
-              <Link to={`/deck/${deck.id}`}>{deck.name}</Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  };
 
   return (
     <Router>
@@ -60,7 +25,7 @@ function App() {
                     subTitle="An AI deck builder for the Commander/EDH format"
                   />
                   <CommanderSearch setDecks={setDecks} decks={decks} />
-                  <CreatedDecks />
+                  <CreatedDecks setDecks={setDecks} decks={decks} />
                 </>
               }
             />

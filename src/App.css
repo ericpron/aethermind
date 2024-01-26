@@ -103,6 +103,12 @@ ul {
   color: rgba(255, 255, 255, 0.85);
 }
 
+.commander-item {
+  position: relative;
+  padding-bottom: 16px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
 .card-item > button {
   padding: 0px 5px;
   border-radius: 32px;
@@ -122,6 +128,10 @@ ul {
 }
 
 .card-item:hover .card-image {
+  display: block;
+}
+
+.commander-item:hover .card-image {
   display: block;
 }
 
