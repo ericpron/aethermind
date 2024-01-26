@@ -63,7 +63,7 @@ const CommanderSearch = ({ setDecks, decks }) => {
   };
 
   return (
-    <div className="Deck-creation">
+    <div>
       <input
         type="text"
         value={commanderSearch}
@@ -81,7 +81,7 @@ const CommanderSearch = ({ setDecks, decks }) => {
                   : card.card_faces[0].image_uris.normal
               }
               alt={`Card art for ${card.name}`}
-              className="card-image"
+              className="commander-image"
             />
             <button onClick={() => addCommanderAndCreateDeck(card)}>
               Select
