@@ -63,32 +63,39 @@ const CommanderSearch = ({ setDecks, decks }) => {
   };
 
   return (
-    <div>
+    <div className="search-container">
       <input
         type="text"
+        className="search-input"
+        placeholder="Select a commander..."
         value={commanderSearch}
         onChange={(e) => setCommanderSearch(e.target.value)}
-        placeholder="Search for a commander"
       />
-      <ul>
-        {commanderSearchResults.map((card, index) => (
-          <li key={index} className="commander-item">
-            {card.name}
-            <img
-              src={
-                card.image_uris
-                  ? card.image_uris.normal
-                  : card.card_faces[0].image_uris.normal
-              }
-              alt={`Card art for ${card.name}`}
-              className="commander-image"
-            />
-            <button onClick={() => addCommanderAndCreateDeck(card)}>
-              Select
-            </button>
-          </li>
-        ))}
-      </ul>
+      <i className="search-icon">🔍</i> {/* Replace with your icon */}
+      {commanderSearchResults.length > 0 && (
+        <div className="search-results">
+          {commanderSearchResults.map((card, index) => (
+            <div key={index} className="search-result-item">
+              {card.name}
+              <img
+                src={
+                  card.image_uris
+                    ? card.image_uris.normal
+                    : card.card_faces[0].image_uris.normal
+                }
+                alt={`Card art for ${card.name}`}
+                className="commander-image"
+              />
+              <button
+                className="select-button"
+                onClick={() => addCommanderAndCreateDeck(card)}
+              >
+                Select
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
