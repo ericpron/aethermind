@@ -63,14 +63,6 @@ function Deck() {
       return card.legalities && card.legalities.commander === "legal";
     };
 
-    const isCardAllowed = (card) => {
-      return (
-        isSingleton(card) &&
-        matchesColorIdentity(card) &&
-        isCardLegalInCommander(card)
-      );
-    };
-
     const isSingleton = (card) => {
       if (card.type_line.includes("Basic Land")) {
         return true;
@@ -84,6 +76,14 @@ function Deck() {
       }
       return card.color_identity.every((color) =>
         commander.color_identity.includes(color)
+      );
+    };
+
+    const isCardAllowed = (card) => {
+      return (
+        isSingleton(card) &&
+        matchesColorIdentity(card) &&
+        isCardLegalInCommander(card)
       );
     };
 

@@ -40,7 +40,7 @@ const CommanderSearch = ({ setDecks, decks }) => {
   const addCommanderAndCreateDeck = async (selectedCommander) => {
     try {
       const newDeck = {
-        name: "New Deck", // You might want to prompt the user for a name or generate a default name
+        name: [selectedCommander.name] + " & friends", // You might want to prompt the user for a name or generate a default name
         Commanders: [selectedCommander],
         Planeswalkers: [],
         Creatures: [],
