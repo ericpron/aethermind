@@ -47,10 +47,6 @@ body {
   text-decoration: none !important;
 }
 
-.Deck-creation {
-  margin: 20px;
-}
-
 .decks li, a, a:visited {
   color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
@@ -103,6 +99,12 @@ ul {
   color: rgba(255, 255, 255, 0.85);
 }
 
+.commander-item {
+  position: relative;
+  padding-bottom: 16px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
 .card-item > button {
   padding: 0px 5px;
   border-radius: 32px;
@@ -121,7 +123,21 @@ ul {
   border-radius: 12px;
 }
 
+.commander-image {
+  display: none;
+  position: absolute;
+  top: -100px;
+  left: 300px; /* Adjust as needed */
+  width: 250px;
+  box-shadow: 8px 8px 16px 0px rgba(0, 0, 0, 0.60);
+  border-radius: 12px;
+}
+
 .card-item:hover .card-image {
+  display: block;
+}
+
+.commander-item:hover .commander-image {
   display: block;
 }
 
