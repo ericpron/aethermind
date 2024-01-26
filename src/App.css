@@ -25,9 +25,16 @@ body {
   text-align: center;
 }
 
-.logo {
-  width: 132px;
+.mana-cost {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mana {
+  width: 24px;
   padding-bottom: 20px;
+  margin-left: -4px;
 }
 
 .App-header h1 {
