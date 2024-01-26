@@ -6,18 +6,28 @@ import B from "../assets/B.svg";
 import R from "../assets/R.svg";
 import G from "../assets/G.svg";
 
-const Header = ({ title, subTitle }) => {
+const Header = ({ title, subTitle, colorIdentity }) => {
   return (
     <header className="App-header">
       <div className="mana-cost">
-        <img src={W} className="mana" alt="white mana symbol" />
-        <img src={U} className="mana" alt="blue mana symbol" />
-        <img src={B} className="mana" alt="black mana symbol" />
-        <img src={R} className="mana" alt="red mana symbol" />
-        <img src={G} className="mana" alt="green mana symbol" />
+        {colorIdentity.includes("W") && (
+          <img src={W} className="mana" alt="white mana symbol" />
+        )}
+        {colorIdentity.includes("U") && (
+          <img src={U} className="mana" alt="blue mana symbol" />
+        )}
+        {colorIdentity.includes("B") && (
+          <img src={B} className="mana" alt="black mana symbol" />
+        )}
+        {colorIdentity.includes("R") && (
+          <img src={R} className="mana" alt="red mana symbol" />
+        )}
+        {colorIdentity.includes("G") && (
+          <img src={G} className="mana" alt="green mana symbol" />
+        )}
       </div>
       <h1>
-        <Link to="/" className="aethermind">
+        <Link to="/" className="title">
           {title}
         </Link>
       </h1>
