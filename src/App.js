@@ -4,8 +4,8 @@ import { collection, getDocs } from "firebase/firestore";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import Deck from "./components/Deck";
 import CommanderSearch from "./components/CommanderSearch";
+import Header from "./components/Header";
 import "./App.css";
-import logo from "./assets/mana.png";
 
 function App() {
   const [decks, setDecks] = useState([]);
@@ -50,20 +50,15 @@ function App() {
     <Router>
       <>
         <div className="App">
-          <header className="App-header">
-            <img src={logo} className="logo" alt="mana symbols" />
-            <h1>
-              <Link to="/" className="aethermind">
-                The Aethermind
-              </Link>
-            </h1>
-            <h3>An AI deck builder for the Commander/EDH format</h3>
-          </header>
           <Routes>
             <Route
               path="/"
               element={
                 <>
+                  <Header
+                    title="The Aethermind"
+                    subTitle="An AI deck builder for the Commander/EDH format"
+                  />
                   <CommanderSearch setDecks={setDecks} decks={decks} />
                   <CreatedDecks />
                 </>
