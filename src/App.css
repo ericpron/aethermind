@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap");
 
 body {
   background-color: #151717;
@@ -6,10 +6,12 @@ body {
 
 .App {
   text-align: left;
-  background-color: #151717; 
-  color: rgba(255, 255, 255, 0.50);
+  background-color: #151717;
+  color: rgba(255, 255, 255, 0.5);
   padding: 0 100px 300px 100px;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .App-header {
@@ -40,15 +42,22 @@ body {
 }
 
 .aethermind {
-  font-family: 'Imperial Script', cursive;
+  font-family: "Imperial Script", cursive;
   font-size: 104px;
   font-style: normal;
   font-weight: 400;
-  line-height: 40px;
+  line-height: 52px;
   text-decoration: none !important;
 }
 
-.decks li, a, a:visited {
+.decks {
+  position: relative;
+  top: 400px;
+}
+
+.decks li,
+a,
+a:visited {
   color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
 }
@@ -61,14 +70,8 @@ a:hover {
   margin-top: 60px;
 }
 
-input[type="text"] {
-  margin-right: 10px;
-  padding: 10px;
-  font-size: 16px;
-}
-
 .category {
-  font-family: Geist Mono;
+  font-family: Geist Mono, monospace;
   font-weight: 400;
   font-size: 14px;
   opacity: 0.5;
@@ -98,20 +101,15 @@ ul {
   position: relative;
   padding-bottom: 16px;
   color: rgba(255, 255, 255, 0.85);
-}
-
-.commander-item {
-  position: relative;
-  padding-bottom: 16px;
-  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
 }
 
 .card-item > button {
   padding: 0px 5px;
   border-radius: 32px;
   border: none;
-  color: rgba(255, 255, 255, 0.50);
-  background-color: rgba(0,0,0, 0.30)
+  color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .card-image {
@@ -120,26 +118,13 @@ ul {
   top: -100px;
   left: 300px; /* Adjust as needed */
   width: 250px;
-  box-shadow: 8px 8px 16px 0px rgba(0, 0, 0, 0.60);
-  border-radius: 12px;
-}
-
-.commander-image {
-  display: none;
-  position: absolute;
-  top: -100px;
-  left: 300px; /* Adjust as needed */
-  width: 250px;
-  box-shadow: 8px 8px 16px 0px rgba(0, 0, 0, 0.60);
+  box-shadow: 8px 8px 16px 0px rgba(0, 0, 0, 0.6);
   border-radius: 12px;
 }
 
 .card-item:hover .card-image {
   display: block;
-}
-
-.commander-item:hover .commander-image {
-  display: block;
+  opacity: 1;
 }
 
 /* Optional: Style for smooth appearing of the image */
@@ -148,6 +133,110 @@ ul {
   opacity: 0;
 }
 
-.card-item:hover .card-image {
-  opacity: 1;
+/*
+/* CommanderSearch styles */
+/* */
+
+input[type="text"] {
+  padding: 12px 16px 12px 46px;
+  font-size: 14px;
+}
+
+.commander-image {
+  display: none;
+  position: absolute;
+  top: -100px;
+  left: 200px;
+  /* Adjust as needed */
+  width: 250px;
+  box-shadow: 8px 8px 16px 0px rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  z-index: 10000;
+}
+
+.search-result-item:hover .commander-image {
+  display: block;
+}
+
+/* Base styles for the search input container */
+.search-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+/* Styles for the input field */
+.search-input {
+  width: -webkit-fill-available;
+  margin-bottom: 24px;
+  font-family: Geist Mono, monospace;
+  outline: none;
+  color: white;
+  background: #151717;
+  border-radius: 17px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  z-index: 3000;
+}
+
+/* Styles for the search icon */
+.search-icon {
+  position: absolute;
+  left: 16px;
+  transform: translateY(60%);
+  color: white;
+  cursor: pointer;
+}
+
+/* Active state for the search input */
+.search-input:focus {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(44, 44, 44, 0.5);
+  box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Styles for the search results */
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: -webkit-fill-available;
+  z-index: 1000;
+}
+
+/* Individual search result item */
+.search-result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 16px;
+  padding: 12px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover state for search result items */
+.search-result-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Style for the select button */
+.select-button {
+  padding: 8px 12px;
+  margin-left: 12px;
+  border: none;
+  border-radius: 10px;
+  background-color: #000;
+  font-family: geist mono, monospace;
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover state for the select button */
+.select-button:hover {
+  background-color: #666;
 }
