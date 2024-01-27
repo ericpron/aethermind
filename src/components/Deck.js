@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import db from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import Header from "../components/Header";
+import { generateDeckWithGPT4, addGeneratedCardsToDeck } from "../deckUtils";
 
 function Deck() {
   let { deckId } = useParams();
 
   const [deck, setDeck] = useState(null);
   const [commander, setCommander] = useState(null);
+  const [loading, setLoading] = useState(false); // State to handle loading screen
+  const navigate = useNavigate();
 
   // Fetch deck data from Firebase
   useEffect(() => {
@@ -214,12 +217,12 @@ function Deck() {
                   alt={`Card art for ${card.name}`}
                   className="card-image"
                 />
-                <button
-                  className="delete-button"
-                  onClick={() => removeCardFromDeck(card, category)}
-                ></button>
                 <div className="card-mana-cost">
                   {parseManaCost(card.mana_cost)}
+                  {/* <button
+                    className="delete-button"
+                    onClick={() => removeCardFromDeck(card, category)}
+                  ></button> */}
                 </div>
               </li>
             ))}
@@ -241,7 +244,21 @@ function Deck() {
         colorIdentity={commander.color_identity}
       />
       {/* <button onClick={generateDeckWithGPT4}>Generate deck with GPT-4</button> */}
-      <button onClick={copyDecklistToClipboard}>Copy decklist</button>
+
+      <div className="deck-actions">
+        <button
+          className="retry-button"
+          onClick={() =>
+            generateDeckWithGPT4(commander, deckId, setLoading, navigate)
+          }
+        >
+          Regenerate
+        </button>
+
+        <button className="copy-button" onClick={copyDecklistToClipboard}>
+          Copy decklist
+        </button>
+      </div>
       <div className="decklist">{renderDeck()}</div>
     </div>
   );
