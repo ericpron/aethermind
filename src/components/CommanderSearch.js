@@ -68,7 +68,7 @@ const CommanderSearch = ({ setDecks, decks }) => {
       const { deckList } = await response.json();
 
       // Take only the first 99 cards from the deckList
-      const first99Cards = deckList.slice(0, 99);
+      const first99Cards = deckList.slice(0, 100);
 
       await addGeneratedCardsToDeck(first99Cards, deckId);
       navigate(`/deck/${deckId}`);

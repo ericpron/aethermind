@@ -121,7 +121,6 @@ function Deck() {
       return null; // Return null or an appropriate fallback
     }
 
-    console.log(manaCostString);
     // Define a mapping from symbol to JSX element
     const manaSymbolToElement = {
       "{W}": <i className="ms ms-cost ms-w"></i>,
