@@ -283,9 +283,9 @@ function Deck() {
         <div></div>
       ) : (
         <div className="deck-actions">
-          <button className="name-button" onClick={copyDecklistToClipboard}>
+          {/* <button className="name-button" onClick={copyDecklistToClipboard}>
             Generate name
-          </button>
+          </button> */}
 
           <button className="retry-button" onClick={reGenerate}>
             Regenerate
