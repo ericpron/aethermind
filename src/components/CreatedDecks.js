@@ -49,9 +49,7 @@ const CreatedDecks = ({ setDecks, decks }) => {
             <button
               className="delete-button"
               onClick={() => removeDeck(deck.id)}
-            >
-              x
-            </button>
+            ></button>
           </li>
         ))}
       </ul>

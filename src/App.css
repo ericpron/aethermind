@@ -123,11 +123,36 @@ ul {
   align-items: center;
   justify-content: space-between;
   position: relative;
-  padding: 8px 0 8px 0;
+  padding: 12px 0 12px 0;
   color: rgba(255, 255, 255, 0.85);
   cursor: pointer;
 }
 
+.card-item:hover .delete-button {
+  display: inline;
+}
+
+.card-image {
+  display: none;
+  position: absolute;
+  top: -100px;
+  left: 200px;
+  width: 250px;
+  box-shadow: 8px 8px 16px 0px rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+}
+
+.card-item:hover .card-image {
+  display: block;
+  opacity: 1;
+}
+
+.card-image {
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+/* card delete button */
 .delete-button {
   display: none;
   border-radius: 50%;
@@ -166,30 +191,6 @@ ul {
   left: 2px;
   right: 2px;
   transform: rotate(45deg);
-}
-
-.card-item:hover .delete-button {
-  display: inline;
-}
-
-.card-image {
-  display: none;
-  position: absolute;
-  top: -100px;
-  left: 200px;
-  width: 250px;
-  box-shadow: 8px 8px 16px 0px rgba(0, 0, 0, 0.6);
-  border-radius: 12px;
-}
-
-.card-item:hover .card-image {
-  display: block;
-  opacity: 1;
-}
-
-.card-image {
-  transition: opacity 0.3s ease;
-  opacity: 0;
 }
 
 .card-mana-cost {

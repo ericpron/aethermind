@@ -328,6 +328,11 @@ function Deck() {
       "{R/W}": <i className="ms ms-cost ms-rw"></i>,
       "{G/W}": <i className="ms ms-cost ms-gw"></i>,
       "{G/U}": <i className="ms ms-cost ms-gu"></i>,
+      "{G/P}": <i className="ms ms-cost ms-gp"></i>,
+      "{W/P}": <i className="ms ms-cost ms-wp"></i>,
+      "{R/P}": <i className="ms ms-cost ms-rp"></i>,
+      "{U/P}": <i className="ms ms-cost ms-up"></i>,
+      "{B/P}": <i className="ms ms-cost ms-bp"></i>,
       // ... add more if there are other combinations
     };
 
