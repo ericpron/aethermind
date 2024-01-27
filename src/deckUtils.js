@@ -52,7 +52,7 @@ export const generateDeckWithGPT4 = async (
 ) => {
   setLoading(true); // Show loading screen
   try {
-    const response = await fetch("http://localhost:3001/generate-deck", {
+    const response = await fetch("api/generate-deck", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
