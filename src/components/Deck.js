@@ -8,8 +8,6 @@ function Deck() {
   let { deckId } = useParams();
 
   const [deck, setDeck] = useState(null);
-  const [cardSearch, setCardSearch] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
   const [commander, setCommander] = useState(null);
 
   // Fetch deck data from Firebase
@@ -30,93 +28,6 @@ function Deck() {
     fetchDeck();
   }, [deckId]);
 
-  // Basic search function for Scryfall API
-  useEffect(() => {
-    if (cardSearch.length > 2) {
-      fetch(`https://api.scryfall.com/cards/search?q=${cardSearch}`)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          if (data && Array.isArray(data.data)) {
-            setSearchResults(data.data);
-          } else {
-            setSearchResults([]); // Set to empty array if response is not in expected format
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching data: ", error);
-          setSearchResults([]); // Set to empty array in case of error
-        });
-    } else {
-      setSearchResults([]); // Clear results if search term is too short
-    }
-  }, [cardSearch]);
-
-  const addCardToDeck = async (card) => {
-    let category = getCategory(card);
-
-    const isCardLegalInCommander = (card) => {
-      return card.legalities && card.legalities.commander === "legal";
-    };
-
-    const isSingleton = (card) => {
-      if (card.type_line.includes("Basic Land")) {
-        return true;
-      }
-      return !isCardInDeck(card);
-    };
-
-    const matchesColorIdentity = (card) => {
-      if (!commander) {
-        return true; // Allow all cards if no commander is selected
-      }
-      return card.color_identity.every((color) =>
-        commander.color_identity.includes(color)
-      );
-    };
-
-    const isCardAllowed = (card) => {
-      return (
-        isSingleton(card) &&
-        matchesColorIdentity(card) &&
-        isCardLegalInCommander(card)
-      );
-    };
-
-    const isCardInDeck = (card) => {
-      // Check if the card exists in any category of the deck
-      return Object.values(deck).some(
-        (category) =>
-          Array.isArray(category) && category.some((c) => c.name === card.name)
-      );
-    };
-
-    if (!isCardAllowed(card)) {
-      console.log("Card not allowed due to color identity or singleton rule");
-      return;
-    }
-
-    let updatedDeck = { ...deck };
-    if (!updatedDeck[category]) {
-      updatedDeck[category] = [];
-    }
-
-    updatedDeck[category].push(card);
-
-    // Update deck in Firebase
-    try {
-      await setDoc(doc(db, "decks", deckId), updatedDeck);
-      setDeck(updatedDeck);
-      setSearchResults([]); // Clear the search results after adding the card
-    } catch (error) {
-      console.error("Error writing document: ", error);
-    }
-  };
-
   const removeCardFromDeck = async (card, category) => {
     let updatedDeck = { ...deck };
 
@@ -134,21 +45,9 @@ function Deck() {
     try {
       await setDoc(doc(db, "decks", deckId), updatedDeck);
       setDeck(updatedDeck);
-      setSearchResults([]); // Clear the search results after adding the card
     } catch (error) {
       console.error("Error writing document: ", error);
     }
-  };
-
-  const getCategory = (card) => {
-    if (card.type_line.includes("Creature")) return "Creatures";
-    if (card.type_line.includes("Planeswalker")) return "Planeswalkers";
-    if (card.type_line.includes("Sorcery")) return "Sorceries";
-    if (card.type_line.includes("Instant")) return "Instants";
-    if (card.type_line.includes("Enchantment")) return "Enchantments";
-    if (card.type_line.includes("Artifact")) return "Artifacts";
-    if (card.type_line.includes("Land")) return "Lands";
-    return "Others";
   };
 
   const getCardCounts = () => {
@@ -177,71 +76,6 @@ function Deck() {
     }
 
     return counts;
-  };
-
-  const addGeneratedCardsToDeck = async (deckList) => {
-    let updatedDeck = { ...deck, commander };
-
-    const isCardLegalInCommander = (card) => {
-      return card.legalities && card.legalities.commander === "legal";
-    };
-
-    for (const cardName of deckList) {
-      try {
-        const cardResponse = await fetch(
-          `https://api.scryfall.com/cards/named?exact=${encodeURIComponent(
-            cardName
-          )}`
-        );
-        if (!cardResponse.ok) {
-          throw new Error(`Error fetching card: ${cardName}`);
-        }
-        const cardData = await cardResponse.json();
-
-        if (isCardLegalInCommander(cardData)) {
-          // Check if card is legal in Commander
-          let category = getCategory(cardData);
-          if (!updatedDeck[category]) {
-            updatedDeck[category] = [];
-          }
-          updatedDeck[category].push(cardData);
-        }
-      } catch (error) {
-        console.error("Error fetching card details: ", error);
-      }
-    }
-
-    // Save the updated deck to Firebase
-    setDoc(doc(db, "decks", deckId), updatedDeck)
-      .then(() => setDeck(updatedDeck))
-      .catch((error) => console.error("Error updating deck: ", error));
-  };
-
-  const generateDeckWithGPT4 = async () => {
-    if (!commander) {
-      alert("Please select a commander first.");
-      return;
-    }
-
-    try {
-      const response = await fetch("http://localhost:3001/generate-deck", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ commander }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const { deckList } = await response.json();
-      addGeneratedCardsToDeck(deckList);
-    } catch (error) {
-      console.error("Error generating deck: ", error);
-      alert("Failed to generate deck. Please try again.");
-    }
   };
 
   const copyDecklistToClipboard = () => {
@@ -404,26 +238,10 @@ function Deck() {
     <div>
       <Header
         title={deck.name}
-        subTitle={`${cardCounts.total} card deck generated by The Aethermind`}
+        subTitle={`${cardCounts.total}-card deck generated by The Aethermind`}
         colorIdentity={commander.color_identity}
       />
-
-      <button onClick={generateDeckWithGPT4}>Generate deck with GPT-4</button>
-
-      {/* <input
-        type="text"
-        value={cardSearch}
-        onChange={(e) => setCardSearch(e.target.value)}
-        placeholder="Add cards"
-      />
-      <div>
-        {searchResults.map((card, index) => (
-          <div key={index}>
-            {card.name}
-            <button onClick={() => addCardToDeck(card)}>Add to Deck</button>
-          </div>
-        ))}
-      </div> */}
+      {/* <button onClick={generateDeckWithGPT4}>Generate deck with GPT-4</button> */}
       <button onClick={copyDecklistToClipboard}>Copy decklist</button>
       <div className="decklist">{renderDeck()}</div>
     </div>

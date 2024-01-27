@@ -29,11 +29,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-left: 5px;
 }
 
 .mana {
   width: 24px;
-  padding-bottom: 20px;
+  height: 24px;
+  margin-bottom: 20px;
   margin-left: -5px;
   border-radius: 32px;
   border: 2px solid #151717;
