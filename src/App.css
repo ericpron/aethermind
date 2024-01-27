@@ -105,7 +105,6 @@ button {
   transition: background-color 0.2s ease;
 }
 
-/* Hover state for the select button */
 button:hover {
   background-color: #666;
 }
@@ -120,20 +119,53 @@ ul {
 }
 
 .card-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   position: relative;
-  padding-bottom: 16px;
+  padding: 8px 0 8px 0;
   color: rgba(255, 255, 255, 0.85);
   cursor: pointer;
 }
 
 .delete-button {
   display: none;
-  padding: 0px 5px;
-  margin-left: 8px;
-  border-radius: 32px;
-  border: none;
-  color: rgba(255, 255, 255, 0.5);
-  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  padding: 0.5em;
+  width: 16px;
+  height: 16px;
+  border: 1px solid gray;
+  color: gray;
+  position: absolute;
+  right: -16px;
+}
+
+.delete-button:hover {
+  background-color: darkgrey;
+  border: 1px solid darkgrey;
+}
+
+.delete-button::before {
+  content: " ";
+  position: absolute;
+  display: block;
+  background-color: gray;
+  width: 1px;
+  left: 6.5px;
+  top: 2px;
+  bottom: 2px;
+  transform: rotate(45deg);
+}
+.delete-button::after {
+  content: " ";
+  position: absolute;
+  display: block;
+  background-color: gray;
+  height: 1px;
+  top: 6.5px;
+  left: 2px;
+  right: 2px;
+  transform: rotate(45deg);
 }
 
 .card-item:hover .delete-button {
@@ -144,7 +176,7 @@ ul {
   display: none;
   position: absolute;
   top: -100px;
-  left: 300px; /* Adjust as needed */
+  left: 200px;
   width: 250px;
   box-shadow: 8px 8px 16px 0px rgba(0, 0, 0, 0.6);
   border-radius: 12px;
@@ -155,14 +187,15 @@ ul {
   opacity: 1;
 }
 
-/* Optional: Style for smooth appearing of the image */
 .card-image {
   transition: opacity 0.3s ease;
   opacity: 0;
 }
 
 .card-mana-cost {
-  display: inline-block;
+  position: absolute;
+  right: 12px;
+  display: flex;
   margin-left: 10px;
   align-items: center;
 }
@@ -188,14 +221,17 @@ input[type="text"] {
   position: absolute;
   top: -100px;
   left: 200px;
-  /* Adjust as needed */
   width: 250px;
   box-shadow: 8px 8px 16px 0px rgba(0, 0, 0, 0.6);
   border-radius: 12px;
   z-index: 10000;
 }
 
-.search-result-item:hover .commander-image {
+.search-result-text {
+  margin: 0px;
+}
+
+.search-result-text:hover .commander-image {
   display: block;
 }
 

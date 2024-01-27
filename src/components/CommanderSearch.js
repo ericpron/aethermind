@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
-import db from "../firebase"; // Adjust the path if necessary
+import db from "../firebase";
+import search from "../assets/search.svg";
 
 const CommanderSearch = ({ setDecks, decks }) => {
   const [commanderSearch, setCommanderSearch] = useState("");
   const [commanderSearchResults, setCommanderSearchResults] = useState([]);
   const navigate = useNavigate();
 
-  // Commander search logic...
+  // Commander search logic
   // Logic for commander specific search
   useEffect(() => {
     if (commanderSearch.length > 2) {
@@ -71,12 +72,14 @@ const CommanderSearch = ({ setDecks, decks }) => {
         value={commanderSearch}
         onChange={(e) => setCommanderSearch(e.target.value)}
       />
-      <i className="search-icon">🔍</i> {/* Replace with your icon */}
+      <i className="search-icon">
+        <img src={search} alt="search icon" />
+      </i>
       {commanderSearchResults.length > 0 && (
         <div className="search-results">
           {commanderSearchResults.map((card, index) => (
             <div key={index} className="search-result-item">
-              {card.name}
+              <div className="search-result-text">{card.name}</div>
               <img
                 src={
                   card.image_uris

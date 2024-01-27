@@ -379,9 +379,7 @@ function Deck() {
                 <button
                   className="delete-button"
                   onClick={() => removeCardFromDeck(card, category)}
-                >
-                  x
-                </button>
+                ></button>
                 <div className="card-mana-cost">
                   {parseManaCost(card.mana_cost)}
                 </div>
