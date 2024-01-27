@@ -5,10 +5,10 @@ import db from "../firebase";
 import search from "../assets/search.svg";
 import { generateDeckWithGPT4, addGeneratedCardsToDeck } from "../deckUtils";
 
-const CommanderSearch = ({ setDecks, decks }) => {
+const DeckGenerator = ({ setDecks, decks, setLoading }) => {
   const [commanderSearch, setCommanderSearch] = useState("");
   const [commanderSearchResults, setCommanderSearchResults] = useState([]);
-  const [loading, setLoading] = useState(false); // State to handle loading screen
+  // const [loading, setLoading] = useState(false); // State to handle loading screen
   const navigate = useNavigate();
 
   // Commander search logic
@@ -64,10 +64,6 @@ const CommanderSearch = ({ setDecks, decks }) => {
     }
   };
 
-  if (loading) {
-    return <div>Loading...</div>; // Replace with your loading component or logic
-  }
-
   return (
     <div className="search-container">
       <input
@@ -108,4 +104,4 @@ const CommanderSearch = ({ setDecks, decks }) => {
   );
 };
 
-export default CommanderSearch;
+export default DeckGenerator;

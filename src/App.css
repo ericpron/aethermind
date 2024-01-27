@@ -29,14 +29,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-left: 9px;
 }
 
 .mana {
   width: 24px;
   height: 24px;
   margin-bottom: 20px;
-  margin-left: -5px;
   border-radius: 32px;
   border: 2px solid #151717;
 }
@@ -59,6 +57,13 @@ body {
   font-weight: 400;
   line-height: 52px;
   text-decoration: none !important;
+  margin-top: 20px;
+  color: white;
+}
+
+.subTitle {
+  margin-top: 24px;
+  max-width: 400px;
 }
 
 .deck-actions {

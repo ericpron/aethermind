@@ -27,10 +27,14 @@ app.post("/generate-deck", async (req, res) => {
     commander.name
   }] as the commander. The chosen cards must match the color identity [${commander.color_identity.join(
     ", "
-  )}], and fit well with the commander's theme and overall strategy. Example response: \n \n{\n
-    "Sol Ring"\n
-    "Arcane Signet"\n 
-    ...`;
+  )}], and fit well with the commander's theme and overall strategy. Please consider potential wincons and choose cards that synergize well with each other and the commander. 
+  
+  Example response:
+  {
+    "Sol Ring"
+    "Arcane Signet"  
+    ... 
+  }`;
 
   console.log(prompt);
 
@@ -40,7 +44,7 @@ app.post("/generate-deck", async (req, res) => {
         {
           role: "system",
           content:
-            "You are part of a system for creating decklists for Magic The Gathering's Commander/EDH format. You receive a prompt containing information about the chosen commander and the deck's color identity. You respond with a JSON object containing ONLY the names of 99 unique and carefully chosen cards that together with the given commander make a complete commander deck, including an appropriate mana base with at least 35 land cards. You MUST ONLY return 99 card names, nothing else. Your response MUST contain ONLY the list of card names, without any other keys or titles or numbers. DO NOT INCLUDE ANY NUMBERS IN YOUR RESPONSE. ONLY ONE CARD NAME PER LINE. For multiple basic lands, list each instance individually.",
+            "You are part of a system for creating decklists for Magic The Gathering's Commander/EDH format. You receive a prompt containing information about the chosen commander and the deck's color identity. You respond with a JSON object containing ONLY the names of 99 unique and carefully chosen cards that together with the given commander make a complete commander deck, including an appropriate mana base with at least 35 land cards. You MUST ONLY return 99 card names, nothing else. Your response MUST contain ONLY the list of card names, without any other keys, values, titles or numbers.\n\nONLY ONE CARD NAME PER LINE. For multiple basic lands, list each instance individually.\n\nForbidden characters in response: ':', ',', '/', '0-9'",
         },
         { role: "user", content: prompt },
       ],

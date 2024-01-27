@@ -6,7 +6,7 @@ import B from "../assets/B.svg";
 import R from "../assets/R.svg";
 import G from "../assets/G.svg";
 
-const Header = ({ title, subTitle, colorIdentity }) => {
+const Header = ({ title, subTitle, colorIdentity, isLoading }) => {
   return (
     <header className="App-header">
       <div className="mana-cost">
@@ -26,12 +26,14 @@ const Header = ({ title, subTitle, colorIdentity }) => {
           <img src={G} className="mana" alt="green mana symbol" />
         )}
       </div>
-      <h1>
-        <Link to="/" className="title">
-          {title}
-        </Link>
+      <h1 className="title">
+        {isLoading ? "Building deck..." : <Link to="/">{title}</Link>}
       </h1>
-      <h3>{subTitle}</h3>
+      <h3 className="subTitle">
+        {isLoading
+          ? `${"In a cave! With a box of scraps! This might take 1-2 minutes. You won't get 100 cards every time either 🤷‍♂️ Blame the robot."}`
+          : subTitle}
+      </h3>
     </header>
   );
 };
