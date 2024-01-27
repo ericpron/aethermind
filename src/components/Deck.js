@@ -15,6 +15,7 @@ function Deck() {
   const [deck, setDeck] = useState(null);
   const [commander, setCommander] = useState(null);
   const [loading, setLoading] = useState(false); // State to handle loading screen
+  const [refreshFlag, setRefreshFlag] = useState(false);
   const navigate = useNavigate();
 
   // Fetch deck data from Firebase
@@ -33,7 +34,7 @@ function Deck() {
     };
 
     fetchDeck();
-  }, [deckId]);
+  }, [deckId, refreshFlag]);
 
   const removeCardFromDeck = async (card, category) => {
     let updatedDeck = { ...deck };
@@ -194,6 +195,7 @@ function Deck() {
       .then(() => {
         // Deck regeneration is complete
         console.log("Deck regeneration complete");
+        setRefreshFlag((prev) => !prev); // Toggle the flag to trigger refetch
       })
       .catch((error) => {
         console.error("Error during deck regeneration: ", error);
