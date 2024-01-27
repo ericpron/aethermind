@@ -31,7 +31,7 @@ const Header = ({ title, subTitle, colorIdentity, isLoading }) => {
       </h1>
       <h3 className="subTitle">
         {isLoading
-          ? `${"In a cave! With a box of scraps! This might take 1-2 minutes. You won't get 100 cards every time either 🤷‍♂️ Blame the robot."}`
+          ? `${"In a cave! With a box of scraps! This might take 1-2 minutes. You won't get 100 cards every time either 🤷‍♂️ LLMs amirite??"}`
           : subTitle}
       </h3>
     </header>
