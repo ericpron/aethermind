@@ -14,6 +14,36 @@ const getCategory = (card) => {
   return "Others";
 };
 
+export const removeAllCardsFromDeck = (deck, deckId) => {
+  return new Promise(async (resolve, reject) => {
+    // Preserve the commander
+    const commander = deck.Commanders;
+
+    // Create a new deck object with empty categories (except for the commander)
+    let updatedDeck = {
+      ...deck,
+      Commanders: commander,
+      Planeswalkers: [],
+      Creatures: [],
+      Sorceries: [],
+      Instants: [],
+      Enchantments: [],
+      Artifacts: [],
+      Lands: [],
+      Others: [],
+    };
+
+    // Update deck in Firebase
+    try {
+      await setDoc(doc(db, "decks", deckId), updatedDeck);
+      resolve(updatedDeck); // Resolve with the updated deck
+    } catch (error) {
+      console.error("Error updating deck: ", error);
+      reject(error);
+    }
+  });
+};
+
 export const generateDeckWithGPT4 = async (
   commander,
   deckId,

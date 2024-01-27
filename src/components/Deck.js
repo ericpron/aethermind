@@ -3,7 +3,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import db from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import Header from "../components/Header";
-import { generateDeckWithGPT4, addGeneratedCardsToDeck } from "../deckUtils";
+import {
+  generateDeckWithGPT4,
+  addGeneratedCardsToDeck,
+  removeAllCardsFromDeck,
+} from "../deckUtils";
 
 function Deck() {
   let { deckId } = useParams();
@@ -181,6 +185,21 @@ function Deck() {
     );
   };
 
+  const reGenerate = () => {
+    removeAllCardsFromDeck(deck, deckId)
+      .then(() => {
+        // At this point, all cards except the commander have been removed
+        return generateDeckWithGPT4(commander, deckId, setLoading, navigate);
+      })
+      .then(() => {
+        // Deck regeneration is complete
+        console.log("Deck regeneration complete");
+      })
+      .catch((error) => {
+        console.error("Error during deck regeneration: ", error);
+      });
+  };
+
   const cardCounts = getCardCounts();
 
   const renderDeck = () => {
@@ -246,12 +265,7 @@ function Deck() {
       {/* <button onClick={generateDeckWithGPT4}>Generate deck with GPT-4</button> */}
 
       <div className="deck-actions">
-        <button
-          className="retry-button"
-          onClick={() =>
-            generateDeckWithGPT4(commander, deckId, setLoading, navigate)
-          }
-        >
+        <button className="retry-button" onClick={reGenerate}>
           Regenerate
         </button>
 
