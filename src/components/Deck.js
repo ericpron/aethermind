@@ -279,15 +279,23 @@ function Deck() {
       />
       {/* <button onClick={generateDeckWithGPT4}>Generate deck with GPT-4</button> */}
 
-      <div className="deck-actions">
-        <button className="retry-button" onClick={reGenerate}>
-          Regenerate
-        </button>
+      {loading ? (
+        <div></div>
+      ) : (
+        <div className="deck-actions">
+          <button className="name-button" onClick={copyDecklistToClipboard}>
+            Generate name
+          </button>
 
-        <button className="copy-button" onClick={copyDecklistToClipboard}>
-          Copy decklist
-        </button>
-      </div>
+          <button className="retry-button" onClick={reGenerate}>
+            Regenerate
+          </button>
+
+          <button className="copy-button" onClick={copyDecklistToClipboard}>
+            Copy decklist
+          </button>
+        </div>
+      )}
       {loading ? <div></div> : <div className="decklist">{renderDeck()}</div>}
     </div>
   );

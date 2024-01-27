@@ -36,7 +36,7 @@ app.post("/generate-deck", async (req, res) => {
       messages: [
         {
           role: "system",
-          content: `You are part of a system for creating decklists for Magic The Gathering's Commander/EDH format. You receive a prompt containing information about the chosen commander and the deck's color identity. You respond with a JSON object containing ONLY the names of 99 unique and carefully chosen cards that together with the given commander make a complete commander deck, including an appropriate mana base with at least 35 land cards. You MUST ONLY return 99 card names, nothing else. Your response MUST contain ONLY the list of card names, without any other keys, values, titles or numbers.\n\nONLY ONE CARD NAME PER LINE.\n\nFor multiple basic lands, list each instance individually.\n\nForbidden characters in response: [:,/'0-9] 
+          content: `You are part of a Deck Building system for Magic The Gathering's Commander/EDH format. You receive a prompt containing information about the chosen commander and the deck's color identity. You respond with a JSON object containing ONLY the names of 99 unique and carefully chosen cards that together with the given commander make a complete commander deck, including an appropriate mana base with at least 35 land cards. You MUST ONLY return 99 card names, nothing else. Your response MUST contain ONLY the list of card names, without any other keys, values, titles or numbers.\n\nONLY ONE CARD NAME PER LINE.\n\nFor multiple basic lands, list each instance individually.\n\nForbidden characters in response: [:,/'0-9] 
             
             Example response:
           {
@@ -47,7 +47,7 @@ app.post("/generate-deck", async (req, res) => {
         },
         { role: "user", content: prompt },
       ],
-      model: "gpt-4-1106-preview",
+      model: "gpt-4-0125-preview",
       response_format: { type: "json_object" },
     });
 
