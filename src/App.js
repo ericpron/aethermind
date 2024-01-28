@@ -24,8 +24,8 @@ function App() {
                 <>
                   <Header
                     title="The Aethermind"
-                    subTitle="An AI deck builder for the Commander/EDH format"
-                    colorIdentity="W, U, B, R, G"
+                    subTitle="An AI deck builder for the Commander / EDH format"
+                    colorIdentity=""
                     isLoading={loading}
                   />
                   {loading ? (
