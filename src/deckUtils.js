@@ -108,6 +108,7 @@ export const generateDeckWithGPT4 = async (
     const first99Cards = deckList.slice(0, 100);
 
     await addGeneratedCardsToDeck(first99Cards, deckId);
+    await renameDeckWithGPT4(commander, deckId, first99Cards, navigate);
     navigate(`/deck/${deckId}`);
   } catch (error) {
     console.error("Error generating deck: ", error);
