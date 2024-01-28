@@ -39,7 +39,6 @@ function Deck() {
       let cardlistdata = "";
       // Assuming your deck's structure has categories with arrays of cards
       const categories = [
-        "Commanders",
         "Planeswalkers",
         "Creatures",
         "Sorceries",
@@ -302,11 +301,11 @@ function Deck() {
       ) : (
         <div className="deck-actions">
           <button className="name-button" onClick={renameDeck}>
-            Generate name
+            Rename
           </button>
 
           <button className="retry-button" onClick={reGenerate}>
-            Regenerate deck
+            Regenerate
           </button>
 
           <button className="copy-button" onClick={copyDecklistToClipboard}>

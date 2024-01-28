@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 
 app.post("/generate-deck", async (req, res) => {
   const commander = req.body.commander;
-  const prompt = `Respond with a JSON object containing only a list of 99 Magic: The Gathering cards for a Commander deck with [${
+  const prompt = `Generate a list of 99 cards for a Commander deck with [${
     commander.name
   }] as the commander. The chosen cards must match the color identity [${commander.color_identity.join(
     ", "
@@ -36,25 +36,27 @@ app.post("/generate-deck", async (req, res) => {
       messages: [
         {
           role: "system",
-          content: `You are a machine that only returns and replies with valid, iterable RFC8259 compliant JSON in your responses. You are part of a Deck Building Application for Magic The Gathering's Commander/EDH format. You receive a prompt containing information about the chosen commander and the deck's color identity. You respond with a JSON object containing ONLY the names of 99 unique and carefully chosen cards that together with the given commander make a complete commander deck, including an appropriate mana base with at least 35 land cards. You MUST ONLY return 99 card names, nothing else. Your response MUST contain ONLY the list of card names, without any other keys, values, titles or numbers.\n\nONLY ONE CARD NAME PER LINE.\n\nFor multiple basic lands, list each instance individually.\n\nForbidden characters in response: [:,/'0-9] 
+          content: `You are a machine that only returns and replies with valid, iterable RFC8259 compliant JSON in your responses. You are part of a Deck Building Application for Magic The Gathering's Commander/EDH format. You receive a prompt containing information about the chosen commander and the deck's color identity. You respond with a simple list of ONLY the names of 99 carefully chosen cards, with one card on each line. Nothing else. Together with the given commander the cards should make a complete commander deck with an appropriate mana base of at least 35 land cards. \n\nONLY ONE CARD NAME PER LINE.\n\nFor multiple basic lands, list each instance individually.\n\n
           
           # How to respond to this prompt
+          - ONLY ONE CARD NAME PER LINE
+          - For multiple basic lands, list each instanec individually
           - Your response MUST be a JSON object
           - No other text, just the JSON object please
-          - No value pairs, only a single list of strings please
-          - Maximum amount of cards in response is 99.
+          - No key-value pairs, only provide the name values for each card
+          - Do not include any numbers in the response, text only. 
+          - The total amount of cards in your response MUST be EXACTLY 99, no more, no less.
             
           Example response:
           {
             "Sol Ring"
             "Arcane Signet"
-            "Korvold, Fae Cursed King"  
             ... 
           }`,
         },
         { role: "user", content: prompt },
       ],
-      model: "gpt-4-0125-preview",
+      model: "gpt-4-turbo-preview",
       response_format: { type: "json_object" },
     });
 
@@ -78,7 +80,10 @@ app.post("/rename-deck", async (req, res) => {
   const commander = req.body.commander;
   const deck = req.body.deck;
   const prompt = `Think of a clever name for the following commander deck with [${commander.name}] as the commander:\n
-  ${deck}`;
+  """
+  ${deck}
+  """
+  `;
 
   console.log(prompt);
 
@@ -87,33 +92,35 @@ app.post("/rename-deck", async (req, res) => {
       messages: [
         {
           role: "system",
-          content: `You are a machine that only returns and replies with valid, iterable RFC8259 compliant JSON in your responses. You are clever and imaginative and know all there is to know about magic the gathering and its lore. You receive lists of cards from Commander/EDH decks and respond with the perfect name for the deck. You do not respond with any chat type messages, you only respond with your chosen name for the deck you were provided.
+          content: `You are clever and imaginative and know all there is to know about magic the gathering and its lore. You receive a list of cards from a Commander/EDH deck and respond with the perfect name for the deck. You DO NOT respond with any chat messages, you only respond with your chosen name for the deck you were provided.
           
           # How to respond to this prompt
-          - Don't use the word 'rampage'
-          - Your response MUST be a JSON object
+          - DO NOT use the word 'rampage'
+          - Your response MUST be a single line of text surrounded by quotes ""
           - No other text, just the chosen name please
-          - Do NOT include any value pairs or keys, just a string
-          - The response must be 5 words or less`,
+          - Your response must be 5 words or less`,
         },
         { role: "user", content: prompt },
       ],
-      model: "gpt-4-0125-preview",
-      response_format: { type: "json_object" },
+      model: "gpt-3.5-turbo-1106",
+      response_format: { type: "text" },
     });
 
     console.log(completion.choices[0].message.content);
-    const nameResponse = completion.choices[0].message.content.trim();
-    // Convert the JSON string to an object
-    let obj = JSON.parse(nameResponse);
+    let name = completion.choices[0].message.content.trim();
+    // // Convert the JSON string to an object
+    // let obj = JSON.parse(nameResponse);
 
-    // Get an array of keys from the object
-    let keys = Object.keys(obj);
+    // // Get an array of keys from the object
+    // let keys = Object.keys(obj);
 
-    // Extract the first key name
-    let name = keys[0];
+    // // Extract the first key name
+    // let name = keys[0];
 
-    name = name.replace(/\.$/, "").replace(/:/g, "").replace(/name/g, "");
+    name = name
+      .replace(/\.$/, "")
+      .replace(/:/g, "")
+      .replace(/^['"]+|['"]+$/g, "");
 
     res.json({ name });
     console.log(name);
