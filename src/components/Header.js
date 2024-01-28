@@ -9,7 +9,7 @@ import G from "../assets/G.svg";
 const Header = ({ title, subTitle, colorIdentity, isLoading }) => {
   return (
     <header className="App-header">
-      <div className="mana-cost">
+      {/* <div className="mana-cost">
         {colorIdentity.includes("W") && (
           <img src={W} className="mana" alt="white mana symbol" />
         )}
@@ -25,7 +25,7 @@ const Header = ({ title, subTitle, colorIdentity, isLoading }) => {
         {colorIdentity.includes("G") && (
           <img src={G} className="mana" alt="green mana symbol" />
         )}
-      </div>
+      </div> */}
       <h1 className="title">
         {isLoading ? "Building deck..." : <Link to="/">{title}</Link>}
       </h1>

@@ -60,6 +60,10 @@ body {
   margin-top: 20px;
   color: white;
   text-shadow: 0 0 7px white;
+  transition: text-shadow 0.2s ease;
+}
+.title:hover {
+  text-shadow: 0 0 16px white;
 }
 
 .subTitle {

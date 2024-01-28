@@ -46,9 +46,9 @@ app.post("/generate-deck", async (req, res) => {
             
           Example response:
           {
-            "Sol Ring",
-            "Arcane Signet",
-            "Korvold, Fae Cursed King",  
+            "Sol Ring"
+            "Arcane Signet"
+            "Korvold, Fae Cursed King"  
             ... 
           }`,
         },
@@ -60,10 +60,11 @@ app.post("/generate-deck", async (req, res) => {
 
     console.log(completion.choices[0].message.content);
     const deckList = completion.choices[0].message.content
-      .trim()
       .replace(/:/g, "")
-      .replace("true", "")
-      .split("\n");
+      .replace(/true/g, "")
+      .replace(/\//g, "")
+      .split("\n")
+      .map((line) => line.trim()); // Apply trim to each element of the array
 
     res.json({ deckList });
     console.log(deckList);
@@ -89,10 +90,11 @@ app.post("/rename-deck", async (req, res) => {
           content: `You are a machine that only returns and replies with valid, iterable RFC8259 compliant JSON in your responses. You are clever and imaginative and know all there is to know about magic the gathering and its lore. You receive lists of cards from Commander/EDH decks and respond with the perfect name for the deck. You do not respond with any chat type messages, you only respond with your chosen name for the deck you were provided.
           
           # How to respond to this prompt
+          - Don't use the word 'rampage'
           - Your response MUST be a JSON object
-          - No other text, just the JSON object please
-          - No value pairs, only a single string of text please
-          - The deck name must be 5 words or less in total`,
+          - No other text, just the chosen name please
+          - Do NOT include any value pairs or keys, just a string
+          - The response must be 5 words or less`,
         },
         { role: "user", content: prompt },
       ],
@@ -111,7 +113,7 @@ app.post("/rename-deck", async (req, res) => {
     // Extract the first key name
     let name = keys[0];
 
-    name = name.replace(/\.$/, "");
+    name = name.replace(/\.$/, "").replace(/:/g, "").replace(/name/g, "");
 
     res.json({ name });
     console.log(name);
