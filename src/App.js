@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import db from "./firebase"; // Adjust the path if necessary
-import { collection, getDocs } from "firebase/firestore";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import Deck from "./components/Deck";
 import DeckGenerator from "./components/DeckGenerator";

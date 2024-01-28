@@ -1,6 +1,6 @@
 // deckUtils.js
 
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import db from "./firebase"; // Update the path as necessary
 
 const getCategory = (card) => {
@@ -12,6 +12,19 @@ const getCategory = (card) => {
   if (card.type_line.includes("Artifact")) return "Artifacts";
   if (card.type_line.includes("Land")) return "Lands";
   return "Others";
+};
+
+const renameDeck = async (deckId, newName) => {
+  const deckRef = doc(db, "decks", deckId);
+
+  try {
+    await updateDoc(deckRef, {
+      name: newName,
+    });
+    console.log(`Deck ${deckId} renamed to ${newName}`);
+  } catch (error) {
+    console.error("Error updating deck name: ", error);
+  }
 };
 
 export const removeAllCardsFromDeck = (deck, deckId) => {
@@ -42,6 +55,31 @@ export const removeAllCardsFromDeck = (deck, deckId) => {
       reject(error);
     }
   });
+};
+
+export const renameDeckWithGPT4 = async (commander, deckId, deck, navigate) => {
+  console.log(deck);
+  try {
+    const response = await fetch("http://localhost:3001/rename-deck", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ commander, deck }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const { name } = await response.json();
+    await renameDeck(deckId, name);
+    navigate(`/deck/${deckId}`);
+  } catch (error) {
+    console.error("Error renaming deck: ", error);
+    alert("Failed to rename deck. Please try again.");
+  } finally {
+  }
 };
 
 export const generateDeckWithGPT4 = async (

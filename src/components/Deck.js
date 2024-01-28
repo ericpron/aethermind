@@ -5,7 +5,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import Header from "../components/Header";
 import {
   generateDeckWithGPT4,
-  addGeneratedCardsToDeck,
+  renameDeckWithGPT4,
   removeAllCardsFromDeck,
 } from "../deckUtils";
 
@@ -13,6 +13,7 @@ function Deck() {
   let { deckId } = useParams();
 
   const [deck, setDeck] = useState(null);
+  const [deckListString, setDeckListString] = useState("");
   const [commander, setCommander] = useState(null);
   const [loading, setLoading] = useState(false); // State to handle loading screen
   const [refreshFlag, setRefreshFlag] = useState(false);
@@ -28,9 +29,34 @@ function Deck() {
         const data = docSnap.data();
         setDeck({ id: docSnap.id, ...data });
         setCommander(data.Commanders[0]); // Set the commander if it exists
+        await getDeckListAsString(data);
       } else {
         console.log("No such deck!");
       }
+    };
+
+    const getDeckListAsString = async (deckData) => {
+      let cardlistdata = "";
+      // Assuming your deck's structure has categories with arrays of cards
+      const categories = [
+        "Commanders",
+        "Planeswalkers",
+        "Creatures",
+        "Sorceries",
+        "Instants",
+        "Enchantments",
+        "Artifacts",
+        "Lands",
+        "Others",
+      ];
+      categories.forEach((category) => {
+        if (deckData[category] && deckData[category].length > 0) {
+          deckData[category].forEach((card) => {
+            cardlistdata += `1 ${card.name}\n`; // Format: '1 Card Name'
+          });
+        }
+      });
+      setDeckListString(cardlistdata); // Store the data in state.
     };
 
     fetchDeck();
@@ -87,31 +113,9 @@ function Deck() {
   };
 
   const copyDecklistToClipboard = () => {
-    let decklistString = "";
-
-    // Assuming your deck's structure has categories with arrays of cards
-    const categories = [
-      "Commanders",
-      "Planeswalkers",
-      "Creatures",
-      "Sorceries",
-      "Instants",
-      "Enchantments",
-      "Artifacts",
-      "Lands",
-      "Others",
-    ];
-    categories.forEach((category) => {
-      if (deck[category] && deck[category].length > 0) {
-        deck[category].forEach((card) => {
-          decklistString += `1 ${card.name}\n`; // Format: '1 Card Name'
-        });
-      }
-    });
-
     // Copy to clipboard
     navigator.clipboard
-      .writeText(decklistString)
+      .writeText(deckListString)
       .then(() => {
         console.log("Decklist copied to clipboard");
         // Optionally, show a message to the user indicating success
@@ -204,6 +208,20 @@ function Deck() {
       });
   };
 
+  const renameDeck = () => {
+    setLoading(true);
+    renameDeckWithGPT4(commander, deckId, deckListString, navigate)
+      .then(() => {
+        // Deck regeneration is complete
+        console.log("Deck renaming complete");
+        setLoading(false);
+        setRefreshFlag((prev) => !prev); // Toggle the flag to trigger refetch
+      })
+      .catch((error) => {
+        console.error("Error during deck renaming process: ", error);
+      });
+  };
+
   const cardCounts = getCardCounts();
 
   const renderDeck = () => {
@@ -283,12 +301,12 @@ function Deck() {
         <div></div>
       ) : (
         <div className="deck-actions">
-          {/* <button className="name-button" onClick={copyDecklistToClipboard}>
+          <button className="name-button" onClick={renameDeck}>
             Generate name
-          </button> */}
+          </button>
 
           <button className="retry-button" onClick={reGenerate}>
-            Regenerate
+            Regenerate deck
           </button>
 
           <button className="copy-button" onClick={copyDecklistToClipboard}>
