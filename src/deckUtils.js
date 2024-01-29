@@ -86,7 +86,8 @@ export const generateDeckWithGPT4 = async (
   commander,
   deckId,
   setLoading,
-  navigate
+  navigate,
+  shouldRename
 ) => {
   setLoading(true); // Show loading screen
   try {
@@ -108,7 +109,9 @@ export const generateDeckWithGPT4 = async (
     const first99Cards = deckList.slice(0, 100);
 
     await addGeneratedCardsToDeck(first99Cards, deckId);
-    await renameDeckWithGPT4(commander, deckId, first99Cards, navigate);
+    if (shouldRename) {
+      await renameDeckWithGPT4(commander, deckId, first99Cards, navigate);
+    }
     navigate(`/deck/${deckId}`);
   } catch (error) {
     console.error("Error generating deck: ", error);

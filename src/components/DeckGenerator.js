@@ -42,6 +42,7 @@ const DeckGenerator = ({ setDecks, decks, setLoading }) => {
 
   const addCommanderAndCreateDeck = async (selectedCommander) => {
     setLoading(true); // Show loading screen
+    let shouldRename = true;
     try {
       const newDeck = {
         name: `${selectedCommander.name} & friends`,
@@ -56,7 +57,8 @@ const DeckGenerator = ({ setDecks, decks, setLoading }) => {
         selectedCommander,
         docRef.id,
         setLoading,
-        navigate
+        navigate,
+        shouldRename
       );
     } catch (error) {
       console.error("Error creating deck with commander: ", error);

@@ -40,7 +40,7 @@ app.post("/generate-deck", async (req, res) => {
           
           # How to respond to this prompt
           - ONLY ONE CARD NAME PER LINE
-          - For multiple basic lands, list each instanec individually
+          - For multiple basic lands, list each instance individually
           - Your response MUST be a JSON object
           - No other text, just the JSON object please
           - No key-value pairs, only provide the name values for each card

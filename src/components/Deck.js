@@ -191,10 +191,18 @@ function Deck() {
 
   const reGenerate = () => {
     setLoading(true);
+    let shouldRename = false;
+
     removeAllCardsFromDeck(deck, deckId)
       .then(() => {
         // At this point, all cards except the commander have been removed
-        return generateDeckWithGPT4(commander, deckId, setLoading, navigate);
+        return generateDeckWithGPT4(
+          commander,
+          deckId,
+          setLoading,
+          navigate,
+          shouldRename
+        );
       })
       .then(() => {
         // Deck regeneration is complete
