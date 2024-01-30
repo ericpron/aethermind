@@ -37,9 +37,14 @@ body {
   margin: 0;
   line-height: 1.4em;
   font-size: 16px;
+  font-style: italic;
   opacity: 0.5;
   transition: opacity ease 0.3;
   margin-bottom: 8px;
+}
+
+.disclaimer:hover {
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .disclaimer:hover p {
@@ -99,12 +104,13 @@ body {
   right: 32px;
 }
 
-.decks {
+.created-decks {
   position: relative;
   top: 400px;
+  padding-bottom: 100px;
 }
 
-.decks li,
+.created-decks li,
 a,
 a:visited {
   color: rgba(255, 255, 255, 1);
@@ -125,6 +131,7 @@ a:hover {
   font-size: 14px;
   opacity: 0.5;
   margin-top: 32px;
+  padding-left: 8px;
 }
 
 .section {
