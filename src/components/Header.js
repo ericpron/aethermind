@@ -26,7 +26,7 @@ const Header = ({ title, subTitle, colorIdentity, isLoading }) => {
           <img src={G} className="mana" alt="green mana symbol" />
         )}
       </div> */}
-      <h1 className="title">
+      <h1 className={isLoading ? "title pulsing-text" : "title"}>
         {isLoading ? "Building deck..." : <Link to="/">{title}</Link>}
       </h1>
       <h3 className="subTitle">

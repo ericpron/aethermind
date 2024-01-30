@@ -90,6 +90,17 @@ export const generateDeckWithGPT4 = async (
   shouldRename
 ) => {
   setLoading(true); // Show loading screen
+  const abortController = new AbortController(); // Create an instance of AbortController
+  const signal = abortController.signal; // Get the signal from the controller
+
+  // Set a timeout to cancel the request after 60 seconds
+  const timeoutId = setTimeout(() => {
+    abortController.abort(); // Cancel the request
+    setLoading(false); // Hide loading screen
+    alert("Request timed out. Please try again."); // Notify the user
+    navigate(`/deck/${deckId}`);
+  }, 120000);
+
   try {
     const response = await fetch("http://localhost:3001/generate-deck", {
       method: "POST",
@@ -98,6 +109,8 @@ export const generateDeckWithGPT4 = async (
       },
       body: JSON.stringify({ commander }),
     });
+
+    clearTimeout(timeoutId); // Clear the timeout if the response is successful
 
     if (!response.ok) {
       throw new Error("Network response was not ok");

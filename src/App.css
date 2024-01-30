@@ -30,7 +30,7 @@ body {
   border-radius: 17px;
   padding: 16px 16px 8px 16px;
   position: relative;
-  top: 150px;
+  top: 160px;
 }
 
 .disclaimer p {
@@ -96,6 +96,7 @@ body {
 .subTitle {
   margin-top: 24px;
   max-width: 450px;
+  line-height: 1.4em;
 }
 
 .deck-actions {
@@ -384,6 +385,30 @@ input[type="text"] {
 /* Hover state for the select button */
 .select-button:hover {
   background-color: #666;
+}
+
+/* ----------------------- */
+/* Loading pulse animation */
+/* ----------------------- */
+
+@keyframes pulse {
+  0% {
+    text-shadow: 0 0 4px #fff;
+    opacity: 0.5;
+  }
+  50% {
+    text-shadow: 0 0 26px #fff;
+    opacity: 1;
+  }
+  100% {
+    text-shadow: 0 0 4px #fff;
+    opacity: 0.5;
+  }
+}
+
+.pulsing-text {
+  animation: pulse 2s infinite;
+  color: #ffffff; /* Adjust text color as needed */
 }
 
 /* ----------------- */
