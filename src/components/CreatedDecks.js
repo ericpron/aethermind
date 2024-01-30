@@ -1,14 +1,23 @@
 // CreatedDecks.js
 import React, { useState, useEffect } from "react";
 import db from "../firebase"; // Adjust the path if necessary
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+  query,
+  orderBy,
+} from "firebase/firestore";
 import { Link } from "react-router-dom";
 
 const CreatedDecks = ({ setDecks, decks }) => {
   useEffect(() => {
     const fetchDecks = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "decks"));
+        const querySnapshot = await getDocs(
+          query(collection(db, "decks"), orderBy("name", "asc"))
+        );
         const decksArray = [];
         querySnapshot.forEach((doc) => {
           decksArray.push({ id: doc.id, ...doc.data() });
