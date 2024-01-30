@@ -35,6 +35,21 @@ function App() {
                         decks={decks}
                         setLoading={setLoading}
                       />
+                      <div className="disclaimer">
+                        <p>
+                          This is a simple tool for building commander decks
+                          using OpenAI's GPT-4 LLM. As a large language model,
+                          it doesn't always give you what you want or expect,
+                          but most of the time you get a pretty interesting deck
+                          out of it. Use the copy decklist button to export it
+                          to Moxfield or Arkidekt.
+                        </p>
+                        <p>
+                          It costs me real world money every time a deck is
+                          generated, so please use it sparingly. Buy me a coffee
+                          if you want. Enjoy!{" "}
+                        </p>
+                      </div>
                       <CreatedDecks setDecks={setDecks} decks={decks} />
                     </>
                   )}
