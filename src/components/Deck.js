@@ -192,7 +192,6 @@ function Deck() {
   const reGenerate = () => {
     setLoading(true);
     let shouldRename = false;
-
     removeAllCardsFromDeck(deck, deckId)
       .then(() => {
         // At this point, all cards except the commander have been removed
@@ -266,7 +265,11 @@ function Deck() {
                   className="card-image"
                 />
                 <div className="card-mana-cost">
-                  {parseManaCost(card.mana_cost)}
+                  {parseManaCost(
+                    card.card_faces
+                      ? card.card_faces[0].mana_cost
+                      : card.mana_cost
+                  )}
                   {/* <button
                     className="delete-button"
                     onClick={() => removeCardFromDeck(card, category)}
