@@ -37,17 +37,16 @@ function App() {
                       />
                       <div className="disclaimer">
                         <p>
-                          This is a simple tool for building commander decks
-                          using OpenAI's GPT-4 LLM. As a large language model,
-                          it doesn't always give you what you want or expect,
-                          but most of the time you get a pretty interesting deck
-                          out of it. Use the copy decklist button to export it
-                          to Moxfield or Arkidekt.
+                          This tool uses OpenAI's GPT-4 to help you build unique
+                          commander decks. Results may vary, but you'll often
+                          get an interesting starting point for a new deck.
+                          Export to Moxfield or Arkidekt with the copy decklist
+                          button.
                         </p>
                         <p>
-                          It costs me real world money every time a deck is
-                          generated, so please use it sparingly. Buy me a coffee
-                          if you want. Enjoy!{" "}
+                          Generating decks incurs costs, so please use sparingly
+                          and consider buying me a coffee if you like the tool.
+                          Enjoy!
                         </p>
                       </div>
                       <CreatedDecks setDecks={setDecks} decks={decks} />
