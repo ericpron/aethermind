@@ -17,7 +17,6 @@ function Deck() {
   const [commander, setCommander] = useState(null);
   const [loading, setLoading] = useState(false); // State to handle loading screen
   const [refreshFlag, setRefreshFlag] = useState(false);
-  const [selectedCard, setSelectedCard] = useState(null);
   const [flippedCards, setFlippedCards] = useState(new Set());
   const navigate = useNavigate();
 
@@ -269,7 +268,9 @@ function Deck() {
       }
       return (
         <div key={category}>
-          {/* ... other codes */}
+          <h3 className="category">{`${category} (${
+            cardCounts[category] || 0
+          })`}</h3>{" "}
           <ul className="section">
             {deck[category].map((card, index) => {
               const cardId = `${category}-${index}`;
