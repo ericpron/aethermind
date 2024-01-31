@@ -1,0 +1,12 @@
+{
+  "functions": {
+    "api/generate-deck.js": {
+      "memory": 3008,
+      "maxDuration": 300
+    },
+    "api/rename-deck.js": {
+      "memory": 1024,
+      "maxDuration": 60
+    }
+  }
+}
