@@ -17,6 +17,8 @@ function Deck() {
   const [commander, setCommander] = useState(null);
   const [loading, setLoading] = useState(false); // State to handle loading screen
   const [refreshFlag, setRefreshFlag] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [flippedCards, setFlippedCards] = useState(new Set());
   const navigate = useNavigate();
 
   // Fetch deck data from Firebase
@@ -228,7 +230,25 @@ function Deck() {
       });
   };
 
+  // ------------------------- //
+  //     renderDeck logic      //
+  // ------------------------- //
+
   const cardCounts = getCardCounts();
+
+  const handleCardClick = (index, category) => {
+    const cardId = `${category}-${index}`; // Create a unique identifier for each card
+
+    setFlippedCards((prevFlippedCards) => {
+      const newFlippedCards = new Set(prevFlippedCards);
+      if (newFlippedCards.has(cardId)) {
+        newFlippedCards.delete(cardId); // Unflip if already flipped
+      } else {
+        newFlippedCards.add(cardId); // Flip if not flipped
+      }
+      return newFlippedCards;
+    });
+  };
 
   const renderDeck = () => {
     const categories = [
@@ -242,41 +262,49 @@ function Deck() {
       "Lands",
       "Others",
     ];
+
     return categories.map((category) => {
       if (!deck || !deck[category] || deck[category].length === 0) {
         return null;
       }
       return (
         <div key={category}>
-          <h3 className="category">{`${category} (${
-            cardCounts[category] || 0
-          })`}</h3>
+          {/* ... other codes */}
           <ul className="section">
-            {deck[category].map((card, index) => (
-              <li key={index} className="card-item">
-                {card.name}
-                <img
-                  src={
-                    card.image_uris
-                      ? card.image_uris.normal
-                      : card.card_faces[0].image_uris.normal
-                  }
-                  alt={`Card art for ${card.name}`}
-                  className="card-image"
-                />
-                <div className="card-mana-cost">
-                  {parseManaCost(
-                    card.card_faces
-                      ? card.card_faces[0].mana_cost
-                      : card.mana_cost
-                  )}
-                  {/* <button
+            {deck[category].map((card, index) => {
+              const cardId = `${category}-${index}`;
+              const isFlipped = flippedCards.has(cardId);
+              const isMDFC = card.card_faces && card.card_faces.length > 1;
+              const cardImage = isMDFC
+                ? isFlipped
+                  ? card.card_faces[1].image_uris.normal
+                  : card.card_faces[0].image_uris.normal
+                : card.image_uris.normal;
+
+              return (
+                <li key={index} className="card-item">
+                  {card.name}
+                  <img
+                    src={cardImage}
+                    alt={`Card art for ${card.name}`}
+                    className="card-image"
+                    onClick={() => handleCardClick(index, category)}
+                  />
+
+                  <div className="card-mana-cost">
+                    {parseManaCost(
+                      card.card_faces
+                        ? card.card_faces[0].mana_cost
+                        : card.mana_cost
+                    )}
+                    {/* <button
                     className="delete-button"
                     onClick={() => removeCardFromDeck(card, category)}
                   ></button> */}
-                </div>
-              </li>
-            ))}
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         </div>
       );

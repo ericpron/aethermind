@@ -47,12 +47,6 @@ function App() {
                           Generating decks incurs costs, so please use it
                           sparingly and maybe buy me a coffee if you had fun.{" "}
                         </p>
-                        <p>
-                          Cheers,{" "}
-                          <Link to="mailto:ericeriksson+aethermind@gmail.com">
-                            ericeriksson
-                          </Link>
-                        </p>
                       </div>
                       <CreatedDecks setDecks={setDecks} decks={decks} />
                     </>
