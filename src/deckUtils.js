@@ -60,7 +60,7 @@ export const removeAllCardsFromDeck = (deck, deckId) => {
 export const renameDeckWithGPT4 = async (commander, deckId, deck, navigate) => {
   console.log(deck);
   try {
-    const response = await fetch("http://localhost:3001/rename-deck", {
+    const response = await fetch("/api/rename-deck", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -102,7 +102,7 @@ export const generateDeckWithGPT4 = async (
   }, 120000);
 
   try {
-    const response = await fetch("http://localhost:3001/generate-deck", {
+    const response = await fetch("/api/generate-deck", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
