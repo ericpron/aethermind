@@ -52,6 +52,10 @@ body {
   cursor: default;
 }
 
+.donate-button {
+  text-decoration: underline;
+}
+
 .mana-cost {
   display: flex;
   align-items: center;

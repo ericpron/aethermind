@@ -45,7 +45,16 @@ function App() {
                         </p>
                         <p>
                           Generating decks incurs costs, so please use it
-                          sparingly and maybe buy me a coffee if you had fun.{" "}
+                          sparingly and maybe
+                          <br />
+                          <Link
+                            to="https://account.venmo.com/u/Eric-Eriksson"
+                            className="donate-button"
+                            target="_blank"
+                          >
+                            venmo me a coffee
+                          </Link>{" "}
+                          if you had fun.
                         </p>
                       </div>
                       <CreatedDecks setDecks={setDecks} decks={decks} />
