@@ -54,7 +54,7 @@ function App() {
                           >
                             venmo me a coffee
                           </Link>{" "}
-                          if you had fun.
+                          if it's cool.
                         </p>
                       </div>
                       <CreatedDecks setDecks={setDecks} decks={decks} />

@@ -55,10 +55,10 @@ const CreatedDecks = ({ setDecks, decks }) => {
         {decks.map((deck) => (
           <li key={deck.id} className="card-item">
             <Link to={`/deck/${deck.id}`}>{deck.name}</Link>
-            <button
+            {/* <button
               className="delete-button"
               onClick={() => removeDeck(deck.id)}
-            ></button>
+            ></button> */}
           </li>
         ))}
       </ul>
