@@ -183,8 +183,16 @@ export const parseManaCost = (manaCostString) => {
     // Split the string by commas
     const symbols = input.split(",");
 
-    // Map each symbol to add braces and then join them back together with commas
-    return symbols.map((input) => `{${input.trim()}}`).join(", ");
+    // Map each symbol to conditionally add braces
+    return symbols
+      .map((symbol) => {
+        symbol = symbol.trim();
+        if (!symbol.startsWith("{") || !symbol.endsWith("}")) {
+          return `{${symbol}}`; // Add braces if they are not present
+        }
+        return symbol; // Keep the symbol as is if it already has braces
+      })
+      .join(", ");
   };
 
   let standardizedSymbol = standardizeManaSymbol(manaCostString);
