@@ -45,8 +45,7 @@ function App() {
                         </p>
                         <p>
                           Generating decks incurs costs, so please use it
-                          sparingly and maybe
-                          <br />
+                          sparingly and maybe{" "}
                           <Link
                             to="https://account.venmo.com/u/Eric-Eriksson"
                             className="donate-button"
