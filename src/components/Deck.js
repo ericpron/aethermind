@@ -7,6 +7,7 @@ import {
   generateDeckWithGPT4,
   renameDeckWithGPT4,
   removeAllCardsFromDeck,
+  parseManaCost,
 } from "../deckUtils";
 
 function Deck() {
@@ -124,70 +125,6 @@ function Deck() {
         console.error("Error in copying text: ", err);
         // Optionally, show an error message to the user
       });
-  };
-
-  const parseManaCost = (manaCostString) => {
-    // Check if manaCostString is defined
-    if (typeof manaCostString !== "string") {
-      console.error("manaCostString is not a string:", manaCostString);
-      return null; // Return null or an appropriate fallback
-    }
-
-    // Define a mapping from symbol to JSX element
-    const manaSymbolToElement = {
-      "{W}": <i className="ms ms-cost ms-w"></i>,
-      "{U}": <i className="ms ms-cost ms-u"></i>,
-      "{B}": <i className="ms ms-cost ms-b"></i>,
-      "{R}": <i className="ms ms-cost ms-r"></i>,
-      "{G}": <i className="ms ms-cost ms-g"></i>,
-      "{C}": <i className="ms ms-cost ms-c"></i>,
-      "{P}": <i className="ms ms-cost ms-p"></i>, // Phyrexian mana
-      "{S}": <i className="ms ms-cost ms-s"></i>, // Snow mana
-      "{X}": <i className="ms ms-cost ms-x"></i>,
-      "{0}": <i className="ms ms-cost ms-0"></i>,
-      "{1}": <i className="ms ms-cost ms-1"></i>,
-      "{2}": <i className="ms ms-cost ms-2"></i>,
-      "{3}": <i className="ms ms-cost ms-3"></i>,
-      "{4}": <i className="ms ms-cost ms-4"></i>,
-      "{5}": <i className="ms ms-cost ms-5"></i>,
-      "{6}": <i className="ms ms-cost ms-6"></i>,
-      "{7}": <i className="ms ms-cost ms-7"></i>,
-      "{8}": <i className="ms ms-cost ms-8"></i>,
-      "{9}": <i className="ms ms-cost ms-9"></i>,
-      "{10}": <i className="ms ms-cost ms-10"></i>,
-      "{11}": <i className="ms ms-cost ms-11"></i>,
-      "{12}": <i className="ms ms-cost ms-12"></i>,
-      "{13}": <i className="ms ms-cost ms-13"></i>,
-      "{2/W}": <i className="ms ms-cost ms-2w"></i>, // Hybrid mana
-      "{2/U}": <i className="ms ms-cost ms-2u"></i>,
-      "{2/B}": <i className="ms ms-cost ms-2b"></i>,
-      "{2/R}": <i className="ms ms-cost ms-2r"></i>,
-      "{2/G}": <i className="ms ms-cost ms-2g"></i>,
-      "{W/U}": <i className="ms ms-cost ms-wu"></i>, // Two-color hybrid mana
-      "{W/B}": <i className="ms ms-cost ms-wb"></i>,
-      "{U/B}": <i className="ms ms-cost ms-ub"></i>,
-      "{U/R}": <i className="ms ms-cost ms-ur"></i>,
-      "{B/R}": <i className="ms ms-cost ms-br"></i>,
-      "{B/G}": <i className="ms ms-cost ms-bg"></i>,
-      "{R/G}": <i className="ms ms-cost ms-rg"></i>,
-      "{R/W}": <i className="ms ms-cost ms-rw"></i>,
-      "{G/W}": <i className="ms ms-cost ms-gw"></i>,
-      "{G/U}": <i className="ms ms-cost ms-gu"></i>,
-      "{G/P}": <i className="ms ms-cost ms-gp"></i>,
-      "{W/P}": <i className="ms ms-cost ms-wp"></i>,
-      "{R/P}": <i className="ms ms-cost ms-rp"></i>,
-      "{U/P}": <i className="ms ms-cost ms-up"></i>,
-      "{B/P}": <i className="ms ms-cost ms-bp"></i>,
-      // ... add more if there are other combinations
-    };
-
-    // Split the string into individual mana symbols
-    const manaSymbols = manaCostString.match(/{.+?}/g) || [];
-
-    // Map each symbol to its JSX element
-    return manaSymbols.map(
-      (symbol, index) => manaSymbolToElement[symbol] || symbol
-    );
   };
 
   const reGenerate = () => {
