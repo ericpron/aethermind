@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import db from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import Header from "../components/Header";
@@ -222,13 +222,14 @@ function Deck() {
               return (
                 <li key={index} className="card-item">
                   {card.name}
-                  <img
-                    src={cardImage}
-                    alt={`Card art for ${card.name}`}
-                    className="card-image"
-                    onClick={() => handleCardClick(index, category)}
-                  />
-
+                  <Link to={card.scryfall_uri} target="_blank">
+                    <img
+                      src={cardImage}
+                      alt={`Card art for ${card.name}`}
+                      className="card-image"
+                      onClick={() => handleCardClick(index, category)}
+                    />
+                  </Link>
                   <div className="card-mana-cost">
                     {parseManaCost(
                       card.card_faces
