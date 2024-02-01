@@ -10,6 +10,7 @@ import {
   orderBy,
 } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import { parseManaCost } from "../deckUtils";
 
 const CreatedDecks = ({ setDecks, decks }) => {
   useEffect(() => {
@@ -55,6 +56,9 @@ const CreatedDecks = ({ setDecks, decks }) => {
         {decks.map((deck) => (
           <li key={deck.id} className="card-item">
             <Link to={`/deck/${deck.id}`}>{deck.name}</Link>
+            <div className="card-mana-cost">
+              {parseManaCost(deck.Commanders[0].color_identity.join())}
+            </div>
             {/* <button
               className="delete-button"
               onClick={() => removeDeck(deck.id)}
