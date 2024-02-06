@@ -418,6 +418,7 @@ input[type="text"] {
 /* ----------------- */
 /* For mobile phones */
 /* ----------------- */
+
 @media screen and (max-width: 480px) {
   .App {
     padding: 60px 16px 300px 16px;
@@ -451,5 +452,10 @@ input[type="text"] {
     position: relative;
     left: 0px;
     top: -20px;
+  }
+
+  .card-item img {
+    top: -390px;
+    let: 15%;
   }
 }
