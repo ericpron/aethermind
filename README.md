@@ -1,5 +1,10 @@
-<<<<<<< HEAD
-# db-2
+
+# db-2 aka The Aethermind
+An AI-powered deck builder for Magic the Gathering's Commander format. 
+Try it live at [aethermind.vercel.app](aethermind.vercel.app)
+
+
+
 =======
 # Getting Started with Create React App
 
