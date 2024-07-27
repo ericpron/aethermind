@@ -57,8 +57,8 @@ module.exports = async (req, res) => {
         },
         { role: "user", content: prompt },
       ],
-      model: "gpt-4-turbo-preview",
-      response_format: { type: "json_object" },
+      model: "gpt-4o",
+      response_format: { type: "json" },
     });
 
     console.log(completion.choices[0].message.content);
