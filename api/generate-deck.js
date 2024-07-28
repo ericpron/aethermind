@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
     commander.name
   }] as the commander. The chosen cards must match the color identity [${commander.color_identity.join(
     ", "
-  )}], and fit well with the commander's theme and overall strategy. Please consider potential win conditions and choose cards that synergize well with each other and the commander.`;
+  )}], and fit well with the commander's theme and overall strategy. Please consider potential win conditions and choose cards that synergize well with each other and the commander. Ensure the deck has a coherent game plan and that the chosen cards work together to achieve this plan. The deck must contain exactly 99 cards, including at least 35 land cards.`;
 
   console.log(prompt);
 
@@ -43,6 +43,7 @@ module.exports = async (req, res) => {
           - Include at least 35 land cards.
           - Ensure all cards match the commander's color identity.
           - List each card name on a new line.
+          - Ensure the deck has a coherent game plan and that the chosen cards work together to achieve this plan.
           - Do not include any additional text or numbers, only the card names.
             
           Example response:
