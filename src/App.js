@@ -37,15 +37,11 @@ function App() {
                       />
                       <div className="disclaimer">
                         <p>
-                          This tool uses OpenAI's GPT-4 to help you build unique
+                          This tool uses OpenAI's GPT-4o to help you build unique
                           commander decks. Results may vary, but you'll often
                           get an interesting starting point for a new deck.
                           Export to Moxfield or Arkidekt with the copy decklist
                           button.
-                        </p>
-                        <p>
-                          Generating decks incurs costs, so please use it
-                          sparingly..
                         </p>
                       </div>
                       <CreatedDecks setDecks={setDecks} decks={decks} />
